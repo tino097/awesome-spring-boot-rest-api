@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css">
+
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<style>
+	#dialog	{
+		background-color: silver;
+	}
+	</style>
+</head>
+<body>
+	<div id="companies" class="container">
+		<h3>List of companies</h3>
+		<table id="companiesTable" class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Address</th>
+					<th>City</th>
+					<th>Country</th>
+				</tr>
+			</thead>
+		</table>
+		<button class="btn btn-default" type="submit" id="add">Add</button>
+	</div>
+
+	<div id="newCompany" class="container">
+		<form>
+			<h3>Create new company</h3>
+			<span>Name: </span><input type="text" id="name" class="form-control" /><br />
+			<span>Address: </span><input type="text" id="address"
+				class="form-control" /><br /> <span>City: </span><input
+				type="text" id="city" class="form-control" /><br /> <span>Country:
+			</span><input type="text" id="country" class="form-control" /><br /> <span>Email:
+			</span><input type="text" id="email" class="form-control" /><br /> <span>Phone:
+			</span><input type="text" id="phone" class="form-control" /><br />
+			<button class="btn btn-default" type="submit" id="new">Save</button>
+		</form>
+	</div>
+	<div id="editCompany" class="container">
+		<h3>Edit company</h3>
+		<form>
+			<input type="hidden" id="editId" /> <label for="name">Name</label> <input
+				type="text" name="name" id="editName" class="form-control" /> <br />
+			<label for="address">Address</label> <input type="text"
+				name="address" id="editAddress" class="form-control" /> <br /> <label
+				for="city">City</label> <input type="text" name="city" id="editCity"
+				class="form-control" /> <br /> <label for="country">Country</label>
+			<input type="text" name="country" id="editCountry"
+				class="form-control" /> <br />
+			<button class="btn btn-default" type="button" id="edit">Save</button>
+			<button class="btn btn-default" type="button" id="addOwner">Add
+				Owner</button>
+		</form>
+	</div>
+
+	<div id="dialog" title="Add Owner">
+		<form>
+			<label for="ownerName">Name:</label> <input id="ownerName"
+				name="ownerName" type="text">
+			<button class="btn btn-default" type="button" id="saveOwner">Save
+				Owner</button>
+		</form>
+	</div>
+	<script src="js/app.js"></script>
+</body>
+</html>

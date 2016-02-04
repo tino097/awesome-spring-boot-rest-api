@@ -1,0 +1,5 @@
+{
+  "name": "Company Service App",
+  "description": "exposing company webservices",
+  "image": "heroku/java"
+}
