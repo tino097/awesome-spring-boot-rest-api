@@ -3,3 +3,5 @@ target/*
 .project
 .mvn/*
 .classpath
+/bin/
+/target/

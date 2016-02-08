@@ -1,5 +1,4 @@
 package com.sivakov;
-
 /**
  * @author Tino097
  *

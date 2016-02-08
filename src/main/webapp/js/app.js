@@ -2,6 +2,18 @@ $(document).ready(function() {
 	CompanyController.init();
 })
 
+var company = {
+	"id" : null,
+	"name" : null,
+	"address" : null,
+	"city" : null,
+	"country" : null,
+	"employees" : [],
+	"owners" : []
+}
+var owner = {
+	"name" : null
+}
 $("#new").click(
 		function() {
 			var tid = $('#companiesTable tr:last').attr('id') == undefined ? 0
@@ -33,15 +45,12 @@ $("#add").click(function() {
 $("#addOwner").click(function() {
 	$("#dialog").dialog("open");
 });
-var company = {
-	"id" : null,
-	"name" : null,
-	"address" : null,
-	"city" : null,
-	"country" : null,
-	"employees" : [],
-	"owners" : []
-}
+
+$("#saveOwner").click(function() {
+	var id = $("#editId").val();
+	owner.name = $("#ownerName").val();
+	CompanyController.addOwner(id, owner);
+});
 
 var CompanyController = {
 	init : function() {	
@@ -128,6 +137,9 @@ var CompanyController = {
 			$("#editAddress").val(data.address);
 			$("#editCity").val(data.city);
 			$("#editCountry").val(data.country);
+			$.each(data.owners,function(i, owners){
+				$("#ownerList").append("<ol>"+owners.name+"</ol");
+			});
 		});
 	},
 
@@ -146,6 +158,28 @@ var CompanyController = {
 			}
 		}).then(function() {
 			CompanyController.init();
+			setTimeout(function() {
+                location.reload();
+            }, 10);
+		});
+	},
+	
+	addOwner : function(id,owner){
+		$.ajax({
+			url : "http://localhost:8080/companies/"+id+"/addOwner",
+			type : "POST",
+			dataType : 'json',
+			data : JSON.stringify(owner),
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				console.log(data);
+			},
+			failure : function(errMsg) {
+				alert(errMsg);
+			}
+		}).then(function() {
+			$("#companies").show();
+			$("#newCompany").hide();
 			setTimeout(function() {
                 location.reload();
             }, 10);

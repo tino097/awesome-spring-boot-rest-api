@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.neo4j.cypher.internal.compiler.v2_1.ast.rewriters.reattachAliasedExpressions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -13,7 +12,6 @@ import com.sivakov.exception.CompanyException;
 import com.sivakov.model.Company;
 import com.sivakov.repository.CompanyRepository;
 
-import scala.annotation.cloneable;
 
 /**
  * @author Tino097
