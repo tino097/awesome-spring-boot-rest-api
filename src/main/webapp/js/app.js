@@ -43,6 +43,7 @@ $("#add").click(function() {
 });
 
 $("#addOwner").click(function() {
+	console.log("owners ");
 	$("#dialog").dialog("open");
 });
 
@@ -138,6 +139,7 @@ var CompanyController = {
 			$("#editCity").val(data.city);
 			$("#editCountry").val(data.country);
 			$.each(data.owners,function(i, owners){
+				console.log("owners " + owners);
 				$("#ownerList").append("<ol>"+owners.name+"</ol");
 			});
 		});
@@ -151,11 +153,10 @@ var CompanyController = {
 			data : JSON.stringify(company),
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
-				console.log(data);
+				console.log("success :" + data);
 			},
 			failure : function(errMsg) {
-				alert(errMsg);
-			}
+				console.log("error: " + errMsg);			}
 		}).then(function() {
 			CompanyController.init();
 			setTimeout(function() {
@@ -165,8 +166,10 @@ var CompanyController = {
 	},
 	
 	addOwner : function(id,owner){
+		var url = "http://localhost:8080/companies/"+id+"/addOwner";
+		console.log(url);
 		$.ajax({
-			url : "http://localhost:8080/companies/"+id+"/addOwner",
+			url : url,
 			type : "POST",
 			dataType : 'json',
 			data : JSON.stringify(owner),
