@@ -15,44 +15,43 @@ import com.sivakov.repository.CompanyRepository;
 
 /**
  * @author Tino097
- *
  */
 @Service
 @Validated
 public class CompanyServiceImpl implements CompanyService {
 
-	@Autowired
-	private CompanyRepository companyRepository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
-	public CompanyServiceImpl() {
-	}
+    public CompanyServiceImpl() {
+    }
 
-	@Override
-	@Transactional
-	public Company save(Company company) {
-		// Simple checkout for duplication, not neccessary in this situation
-		// yet i treid to implement it as for exception handling
-		Company existingCompany = companyRepository.findOne(company.getId());
-		if (existingCompany != null) {
-			throw new CompanyException("Duplicate company");
-		}
-		return companyRepository.save(company);
-	}
+    @Override
+    @Transactional
+    public Company save(Company company) {
+        // Simple checkout for duplication, not neccessary in this situation
+        // yet i treid to implement it as for exception handling
+        Company existingCompany = companyRepository.findOne(company.getId());
+        if (existingCompany != null) {
+            throw new CompanyException("Duplicate company");
+        }
+        return companyRepository.save(company);
+    }
 
-	@Override
-	@Transactional
-	public List<Company> getAll() {
-		return companyRepository.findAll();
-	}
+    @Override
+    @Transactional
+    public List<Company> getAll() {
+        return companyRepository.findAll();
+    }
 
-	@Override
-	public Company getCompanyById(Long id) {
-		return companyRepository.findOne(id);
-	}
+    @Override
+    public Company getCompanyById(Long id) {
+        return companyRepository.findOne(id);
+    }
 
-	@Override
-	@Transactional
-	public Company update(Company company) {
-		return companyRepository.save(company);
-	}
+    @Override
+    @Transactional
+    public Company update(Company company) {
+        return companyRepository.save(company);
+    }
 }
