@@ -1,68 +1,32 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.4.RELEASE")
-    }
-}
-
 plugins {
-    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
-    id 'maven-publish'
 }
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'maven'
-
-
-
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
-
-
-dependencies {
-    compile("org.springframework.boot:spring-boot-starter-data-rest")
-    compile("org.springframework.data:spring-data-rest-webmvc:3.1.8.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
-    compile group: 'io.springfox', name: 'springfox-data-rest', version: '2.9.2'
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.2.2.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-hateoas', version: '2.2.2.RELEASE'
-    compile group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.2'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.2.2.RELEASE'
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.2.2.RELEASE'
-    testCompile group: 'com.h2database', name: 'h2', version: '1.4.199'
-
-
-}
-
 
 group = 'com.sivakov'
 version = '0.0.1-SNAPSHOT'
-description = 'CompanyService'
 sourceCompatibility = '1.8'
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
-    }
+repositories {
+    mavenCentral()
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.h2database:h2'
+    compile group: 'org.springframework.plugin', name: 'spring-plugin-core', version: '1.2.0.RELEASE'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-data-rest', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+
+
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+}
+
+test {
+    useJUnitPlatform()
 }

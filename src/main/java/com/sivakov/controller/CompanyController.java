@@ -1,10 +1,12 @@
 package com.sivakov.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.Valid;
 
+import com.sivakov.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,6 @@ import com.sivakov.exception.CompanyException;
 import com.sivakov.model.Company;
 import com.sivakov.model.ErrorResponse;
 import com.sivakov.model.Owner;
-import com.sivakov.service.CompanyService;
 
 /**
  * @author Tino097
@@ -46,7 +46,8 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/companies/{id}", method = RequestMethod.GET)
-	public @ResponseBody Company getCompany(@PathVariable Long id) {
+	public @ResponseBody
+	Company getCompany(@PathVariable Long id) {
 		return companyService.getCompanyById(id);
 	}
 
