@@ -5,14 +5,9 @@ package com.sivakov.model;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -24,7 +19,7 @@ public class Company {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private UUID id;
 
 	@NotNull
 	private String name;
@@ -45,15 +40,15 @@ public class Company {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.LAZY)
 	private Set<Employee> employees = new HashSet<Employee>();
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.LAZY)
-	private Set<Owner> owners = new HashSet<Owner>();
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.LAZY)
+	private Owner owner;
 
 	public Company() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Company(Long id, String name, String address, String city, String country, String email, String phoneNumber,
-			Set<Employee> employees, Set<Owner> owners) {
+	public Company(UUID id, String name, String address, String city, String country, String email, String phoneNumber,
+			Set<Employee> employees, Owner owner) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -63,14 +58,14 @@ public class Company {
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.employees = employees;
-		this.owners = owners;
+		this.owner = owner;
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
@@ -130,12 +125,12 @@ public class Company {
 		this.employees = employees;
 	}
 
-	public Set<Owner> getOwners() {
-		return owners;
+	public Owner getOwner() {
+		return owner;
 	}
 
-	public void setOwners(Set<Owner> owners) {
-		this.owners = owners;
+	public void setOwner(Owner owner) {
+		this.owner = owner;
 	}
 
 }

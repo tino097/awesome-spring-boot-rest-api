@@ -24,33 +24,57 @@ import com.sivakov.model.ErrorResponse;
 import com.sivakov.model.Owner;
 
 /**
- * @author Tino097
+ * The type Company controller.
  *
+ * @author Tino097
  */
-
 @RestController
 public class CompanyController {
 
 	@Autowired
 	private CompanyService companyService;
 
+	/**
+	 * Gets company.
+	 *
+	 * @return the company
+	 */
 	@RequestMapping(value = "/companies", method = RequestMethod.GET)
 	public @ResponseBody List<Company> getCompany() {
 		List<Company> companies = companyService.getAll();
 		return companies;
 	}
 
+	/**
+	 * Create company company.
+	 *
+	 * @param company the company
+	 * @return the company
+	 */
 	@RequestMapping(value = "/companies/add", method = RequestMethod.POST)
 	public @ResponseBody Company createCompany(@RequestBody @Valid Company company) {
 		return companyService.save(company);
 	}
 
+	/**
+	 * Gets company.
+	 *
+	 * @param id the id
+	 * @return the company
+	 */
 	@RequestMapping(value = "/companies/{id}", method = RequestMethod.GET)
 	public @ResponseBody
 	Company getCompany(@PathVariable Long id) {
 		return companyService.getCompanyById(id);
 	}
 
+	/**
+	 * Edit company company.
+	 *
+	 * @param company the company
+	 * @param id      the id
+	 * @return the company
+	 */
 	@RequestMapping(value = "/companies/{id}", method = RequestMethod.POST)
 	public @ResponseBody Company editCompany(@RequestBody Company company, @PathVariable Long id) {
 		Company existing = companyService.getCompanyById(id);
@@ -62,15 +86,26 @@ public class CompanyController {
 		return companyService.update(existing);
 	}
 
+	/**
+	 * Add owner company.
+	 *
+	 * @param owner the owner
+	 * @param id    the id
+	 * @return the company
+	 */
 	@RequestMapping(value = "/companies/{id}/addOwner", method = RequestMethod.POST)
 	public @ResponseBody Company addOwner(@RequestBody Owner owner, @PathVariable Long id) {
 		Company existing = companyService.getCompanyById(id);
-		Set<Owner> owners = existing.getOwners();
-		owners.add(owner);
-		existing.setOwners(owners);
+		existing.setOwner(owner);
 		return companyService.update(existing);
 	}
 
+	/**
+	 * Handle u exception error response.
+	 *
+	 * @param e the e
+	 * @return the error response
+	 */
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public @ResponseBody ErrorResponse handleUException(CompanyException e) {
