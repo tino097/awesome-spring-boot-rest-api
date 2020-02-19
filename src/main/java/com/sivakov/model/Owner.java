@@ -7,6 +7,8 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.UUID;
+
 /**
  * @author Tino097
  *
@@ -15,8 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Owner {
 
 	@Id
-	@GeneratedValue
-	private Long id;
+	@GeneratedValue(generator = "UUID")
+	private UUID id;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="owner_id")
@@ -25,11 +27,11 @@ public class Owner {
 	
 	private String name;
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

@@ -5,7 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import com.sivakov.model.Company;
 
+import java.util.List;
+
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
+
+    public List<Company> findByIndustriesId(Long industryId);
 
 }

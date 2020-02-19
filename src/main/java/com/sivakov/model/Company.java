@@ -3,9 +3,8 @@
  */
 package com.sivakov.model;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+
+import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class Company {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator = "UUID")
 	private UUID id;
 
 	@NotNull
@@ -43,13 +42,17 @@ public class Company {
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.LAZY)
 	private Owner owner;
 
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "company_industry", joinColumns = @JoinColumn(name = "company_id"),
+			inverseJoinColumns = @JoinColumn(name = "industry_id"),
+			uniqueConstraints = @UniqueConstraint(columnNames ={"company_id", "industry_id"}))
+	private Set<Industry> industries = new HashSet<>();
+
 	public Company() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Company(UUID id, String name, String address, String city, String country, String email, String phoneNumber,
-			Set<Employee> employees, Owner owner) {
-		super();
+	public Company(UUID id, @NotNull String name, @NotNull String address, @NotNull String city, @NotNull String country, String email, String phoneNumber, Set<Employee> employees, Owner owner, Set<Industry> industries) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
@@ -59,6 +62,7 @@ public class Company {
 		this.phoneNumber = phoneNumber;
 		this.employees = employees;
 		this.owner = owner;
+		this.industries = industries;
 	}
 
 	public UUID getId() {
@@ -133,4 +137,27 @@ public class Company {
 		this.owner = owner;
 	}
 
+	public Set<Industry> getIndustries() {
+		return industries;
+	}
+
+	public void setIndustries(Set<Industry> industries) {
+		this.industries = industries;
+	}
+
+	@Override
+	public String toString() {
+		return "Company{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", address='" + address + '\'' +
+				", city='" + city + '\'' +
+				", country='" + country + '\'' +
+				", email='" + email + '\'' +
+				", phoneNumber='" + phoneNumber + '\'' +
+				", employees=" + employees +
+				", owner=" + owner +
+				", industries=" + industries +
+				'}';
+	}
 }

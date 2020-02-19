@@ -23,7 +23,7 @@ import java.util.UUID;
 public class Employee {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "UUID")
 	private UUID id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

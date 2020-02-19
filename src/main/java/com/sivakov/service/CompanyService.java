@@ -1,13 +1,11 @@
 package com.sivakov.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import com.sivakov.exception.CompanyException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -77,5 +75,9 @@ public class CompanyService {
     public Company update(Company company) {
 
         return companyRepository.save(company);
+    }
+
+    public List<Company> getCompaniesByIndustry(Long industryId){
+        return companyRepository.findByIndustriesId(industryId);
     }
 }

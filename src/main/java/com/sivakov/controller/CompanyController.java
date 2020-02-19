@@ -9,14 +9,7 @@ import javax.validation.Valid;
 import com.sivakov.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.sivakov.exception.CompanyException;
 import com.sivakov.model.Company;
@@ -64,7 +57,7 @@ public class CompanyController {
 	 */
 	@RequestMapping(value = "/companies/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-	Company getCompany(@PathVariable Long id) {
+	Company getCompanyById(@PathVariable Long id) {
 		return companyService.getCompanyById(id);
 	}
 
@@ -98,6 +91,11 @@ public class CompanyController {
 		Company existing = companyService.getCompanyById(id);
 		existing.setOwner(owner);
 		return companyService.update(existing);
+	}
+
+	@RequestMapping(value = "/companies/findBy", method = RequestMethod.GET)
+	public @ResponseBody List<Company> getCompaniesByIndustry(@RequestParam(value="industryId") Long industryId){
+		return companyService.getCompaniesByIndustry(industryId);
 	}
 
 	/**
