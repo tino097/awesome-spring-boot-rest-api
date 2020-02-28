@@ -3,6 +3,7 @@
 [![Wercker](https://img.shields.io/badge/spring--boot-2.1.5.RELEASE-green.svg?style=flat-square&logo=spring)](https://spring.io/projects/spring-boot)
 [![Wercker](https://img.shields.io/badge/java-8-blue.svg?style=flat-square&logo=java)](https://openjdk.java.net/install/)
 [![Wercker](https://img.shields.io/badge/gradle-6.11-brightgreen.svg?style=flat-square&logo=gradle)](https://gradle.org/install/)
+![GitHub issues](https://img.shields.io/github/issues-raw/tino097/awesome-spring-boot-rest-api?style=flat-square)
 
 ## Table of contents
 1. [Introduction](#introduction)
