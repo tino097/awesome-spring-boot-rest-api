@@ -4,6 +4,9 @@
 [![Wercker](https://img.shields.io/badge/java-8-blue.svg?style=flat-square&logo=java)](https://openjdk.java.net/install/)
 [![Wercker](https://img.shields.io/badge/gradle-6.11-brightgreen.svg?style=flat-square&logo=gradle)](https://gradle.org/install/)
 
+*TODO: Improve the readme file
+---
+
 ## Table of contents
 1. [Introduction](#introduction)
 2. [Prerequisites](#prerequisites)
@@ -22,4 +25,4 @@
 - Java 1.8+
 - Gradle 6.1.1
 - Docker
-
+---
