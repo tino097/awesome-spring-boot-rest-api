@@ -4,6 +4,8 @@
 [![Wercker](https://img.shields.io/badge/java-8-blue.svg?style=flat-square&logo=java)](https://openjdk.java.net/install/)
 [![Wercker](https://img.shields.io/badge/gradle-6.11-brightgreen.svg?style=flat-square&logo=gradle)](https://gradle.org/install/)
 ![GitHub issues](https://img.shields.io/github/issues-raw/tino097/awesome-spring-boot-rest-api?style=flat-square)
+![GitHub labels](https://img.shields.io/github/labels/tino097/awesome-spring-boot-rest-api/good first issue?style=flat-square)
+![GitHub labels](https://img.shields.io/github/labels/tino097/awesome-spring-boot-rest-api/help wanted?style=flat-square)
 
 *TODO: Improve the readme file
 ---
