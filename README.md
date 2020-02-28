@@ -1,3 +1,2 @@
-# CompanyService
+# Awesome Spring Boot Rest API
 
-This is demo application using Spring Boot to create and expose REST web services
