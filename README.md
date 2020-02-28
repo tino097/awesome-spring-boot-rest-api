@@ -1,4 +1,4 @@
-# <img src="https://github.com/tino097/awesome-spring-boot-rest-api/raw/master/spring-boot-logo.png" align="absmiddle"/> Awesome Spring Boot Rest API
+# <img src="https://github.com/tino097/awesome-spring-boot-rest-api/raw/master/spring-logo.png" align="absmiddle"/> Awesome Spring Boot Rest API
 
 [![Wercker](https://img.shields.io/badge/spring--boot-2.1.5.RELEASE-green.svg?style=flat-square&logo=spring)](https://spring.io/projects/spring-boot)
 [![Wercker](https://img.shields.io/badge/java-8-blue.svg?style=flat-square&logo=java)](https://openjdk.java.net/install/)
