@@ -1,5 +1,6 @@
-package com.sivakov;
+package com.sivakov.service;
 
+import com.sivakov.Application;
 import com.sivakov.controller.CompanyController;
 import com.sivakov.model.Company;
 import com.sivakov.model.Industry;
