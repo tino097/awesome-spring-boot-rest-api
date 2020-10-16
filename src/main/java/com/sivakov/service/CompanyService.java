@@ -1,83 +1,69 @@
 package com.sivakov.service;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
-import com.sivakov.exception.CompanyException;
+import com.sivakov.model.Company;
+import com.sivakov.model.Owner;
+import com.sivakov.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.sivakov.model.Company;
-import com.sivakov.repository.CompanyRepository;
+import java.util.List;
+import java.util.UUID;
 
 
 /**
  * The type Company service.
+ *
  * @author tino097
  */
 @Service
 @Validated
-public class CompanyService {
+public class CompanyService extends CrudService<Company, UUID, CompanyRepository> {
+
+    private final OwnerService ownerService;
 
     @Autowired
-    private CompanyRepository companyRepository;
-
-    /**
-     * Instantiates a new Company service.
-     */
-    public CompanyService() {
+    protected CompanyService(CompanyRepository repository, OwnerService ownerService) {
+        super(repository);
+        this.ownerService = ownerService;
     }
 
     /**
-     * Save company.
+     * Get Companies by industryId
      *
-     * @param company the company
-     * @return the company
+     * @param industryId industry's ID
+     * @return List of companies
      */
-    @Transactional
-    public Company save(Company company) {
-
-        Company companySaved = companyRepository.save(company);
-        return companySaved;
+    public List<Company> getCompaniesByIndustry(Long industryId) {
+        return repository.findByIndustriesId(industryId);
     }
 
     /**
-     * Gets all.
+     * Edit company
      *
-     * @return the all
+     * @param company to edit
+     * @param id company's id
+     * @return edited company
      */
-    @Transactional
-    public List<Company> getAll() {
-
-        return companyRepository.findAll();
+    public Company editCompany(Company company, UUID id) {
+        Company existing = getById(id);
+        existing.setName(company.getName());
+        existing.setAddress(company.getAddress());
+        existing.setCity(company.getCity());
+        existing.setCountry(company.getCountry());
+        return existing;
     }
 
     /**
-     * Gets company by id.
-     *
-     * @param id the id
-     * @return the company by id
+     * Add owner
+     * @param id of company
+     * @param ownerId id of owner
+     * @return edited company
      */
-    public Company getCompanyById(Long id) {
-
-        return companyRepository.findById(id).orElseThrow(()-> new CompanyException("Company not found"));
-    }
-
-    /**
-     * Update company.
-     *
-     * @param company the company
-     * @return the company
-     */
-    @Transactional
-    public Company update(Company company) {
-
-        return companyRepository.save(company);
-    }
-
-    public List<Company> getCompaniesByIndustry(Long industryId){
-        return companyRepository.findByIndustriesId(industryId);
+    public Company addOwner(UUID id, UUID ownerId) {
+        Company existing = getById(id);
+        Owner owner = ownerService.getById(ownerId);
+        existing.setOwner(owner);
+        return existing;
     }
 }
