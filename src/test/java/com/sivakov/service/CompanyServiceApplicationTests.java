@@ -5,33 +5,28 @@ import com.sivakov.controller.CompanyController;
 import com.sivakov.model.Company;
 import com.sivakov.model.Industry;
 import com.sivakov.repository.CompanyRepository;
-import com.sivakov.service.CompanyService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.util.*;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-public class CompanyServiceApplicationTests {
+class CompanyServiceApplicationTests {
 
 	@MockBean
 	private  CompanyRepository companyRepository;
@@ -46,15 +41,14 @@ public class CompanyServiceApplicationTests {
 	private MockMvc mockMvc;
 
 	Company company = new Company();
-
 	Industry industry = new Industry();
 	Industry industry2 = new Industry();
 	Industry industry3 = new Industry();
 
 
 
-	@Before
-	public void setUp(){
+	@BeforeAll
+	void setUp(){
 		company.setId(UUID.randomUUID());
 		company.setName("Test Company");
 
@@ -75,7 +69,7 @@ public class CompanyServiceApplicationTests {
 	}
 
 	@Test
-	public void testGetCompany() throws Exception {
+	void testGetCompany() throws Exception {
 		List<Company> results = new ArrayList<>();
 		results.add(company);
 		when(companyService.getAll()).thenReturn(results);
@@ -84,7 +78,7 @@ public class CompanyServiceApplicationTests {
 	}
 
 	@Test
-	public void testGetCompanyByIndustryId() throws Exception{
+	void testGetCompanyByIndustryId() throws Exception{
 		List<Company> results = new ArrayList<>();
 		results.add(company);
 		when(companyService.getCompaniesByIndustry(1L)).thenReturn(results);

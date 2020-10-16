@@ -1,20 +1,16 @@
 package com.sivakov.controller;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import javax.validation.Valid;
-
+import com.sivakov.exception.CompanyException;
+import com.sivakov.model.Company;
+import com.sivakov.model.ErrorResponse;
+import com.sivakov.model.Owner;
 import com.sivakov.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.sivakov.exception.CompanyException;
-import com.sivakov.model.Company;
-import com.sivakov.model.ErrorResponse;
-import com.sivakov.model.Owner;
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * The type Company controller.
