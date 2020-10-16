@@ -1,20 +1,16 @@
 package com.sivakov.controller;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import javax.validation.Valid;
-
+import com.sivakov.exception.CompanyException;
+import com.sivakov.model.Company;
+import com.sivakov.model.ErrorResponse;
 import com.sivakov.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.sivakov.exception.CompanyException;
-import com.sivakov.model.Company;
-import com.sivakov.model.ErrorResponse;
-import com.sivakov.model.Owner;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * The type Company controller.
@@ -22,6 +18,7 @@ import com.sivakov.model.Owner;
  * @author Tino097
  */
 @RestController
+@RequestMapping("/companies")
 public class CompanyController {
 
 	@Autowired
@@ -32,10 +29,9 @@ public class CompanyController {
 	 *
 	 * @return the company
 	 */
-	@RequestMapping(value = "/companies", method = RequestMethod.GET)
+	@GetMapping
 	public @ResponseBody List<Company> getCompany() {
-		List<Company> companies = companyService.getAll();
-		return companies;
+		return companyService.getAll();
 	}
 
 	/**
@@ -44,7 +40,7 @@ public class CompanyController {
 	 * @param company the company
 	 * @return the company
 	 */
-	@RequestMapping(value = "/companies/add", method = RequestMethod.POST)
+	@PostMapping("add")
 	public @ResponseBody Company createCompany(@RequestBody @Valid Company company) {
 		return companyService.save(company);
 	}
@@ -55,10 +51,10 @@ public class CompanyController {
 	 * @param id the id
 	 * @return the company
 	 */
-	@RequestMapping(value = "/companies/{id}", method = RequestMethod.GET)
+	@GetMapping("{id}")
 	public @ResponseBody
-	Company getCompanyById(@PathVariable Long id) {
-		return companyService.getCompanyById(id);
+	Company getCompanyById(@PathVariable UUID id) {
+		return companyService.getById(id);
 	}
 
 	/**
@@ -68,31 +64,24 @@ public class CompanyController {
 	 * @param id      the id
 	 * @return the company
 	 */
-	@RequestMapping(value = "/companies/{id}", method = RequestMethod.POST)
-	public @ResponseBody Company editCompany(@RequestBody Company company, @PathVariable Long id) {
-		Company existing = companyService.getCompanyById(id);
-		existing.setName(company.getName());
-		existing.setAddress(company.getAddress());
-		existing.setCity(company.getCity());
-		existing.setCountry(company.getCountry());
-		// this is a partial update, just to show that REST service will work
-		return companyService.update(existing);
+	@PutMapping("{id}")
+	public @ResponseBody Company editCompany(@RequestBody Company company, @PathVariable UUID id) {
+		return companyService.editCompany(company, id);
 	}
 
 	/**
 	 * Add owner company.
 	 *
-	 * @param owner the owner
 	 * @param id    the id
+	 * @param ownerId the owner's id
 	 * @return the company
 	 */
-	@RequestMapping(value = "/companies/{id}/addOwner", method = RequestMethod.POST)
-	public @ResponseBody Company addOwner(@RequestBody Owner owner, @PathVariable Long id) {
-		Company existing = companyService.getCompanyById(id);
-		existing.setOwner(owner);
-		return companyService.update(existing);
+	@PostMapping("{id}/{ownerId}")
+	public @ResponseBody Company addOwner(@PathVariable UUID id, @PathVariable UUID ownerId) {
+		return companyService.addOwner(id, ownerId);
 	}
 
+	//This feature should be located in the 'industry' controller
 	@RequestMapping(value = "/companies/findBy", method = RequestMethod.GET)
 	public @ResponseBody List<Company> getCompaniesByIndustry(@RequestParam(value="industryId") Long industryId){
 		return companyService.getCompaniesByIndustry(industryId);
