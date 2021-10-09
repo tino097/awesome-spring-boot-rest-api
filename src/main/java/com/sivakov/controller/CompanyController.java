@@ -30,7 +30,7 @@ public class CompanyController {
 	 * @return the company
 	 */
 	@GetMapping
-	public @ResponseBody List<Company> getCompany() {
+	public List<Company> getCompany() {
 		return companyService.getAll();
 	}
 
@@ -41,7 +41,7 @@ public class CompanyController {
 	 * @return the company
 	 */
 	@PostMapping("add")
-	public @ResponseBody Company createCompany(@RequestBody @Valid Company company) {
+	public Company createCompany(@RequestBody @Valid Company company) {
 		return companyService.save(company);
 	}
 
@@ -52,8 +52,7 @@ public class CompanyController {
 	 * @return the company
 	 */
 	@GetMapping("{id}")
-	public @ResponseBody
-	Company getCompanyById(@PathVariable UUID id) {
+	public Company getCompanyById(@PathVariable UUID id) {
 		return companyService.getById(id);
 	}
 
@@ -65,7 +64,7 @@ public class CompanyController {
 	 * @return the company
 	 */
 	@PutMapping("{id}")
-	public @ResponseBody Company editCompany(@RequestBody Company company, @PathVariable UUID id) {
+	public Company editCompany(@RequestBody Company company, @PathVariable UUID id) {
 		return companyService.editCompany(company, id);
 	}
 
@@ -77,13 +76,13 @@ public class CompanyController {
 	 * @return the company
 	 */
 	@PostMapping("{id}/{ownerId}")
-	public @ResponseBody Company addOwner(@PathVariable UUID id, @PathVariable UUID ownerId) {
+	public Company addOwner(@PathVariable UUID id, @PathVariable UUID ownerId) {
 		return companyService.addOwner(id, ownerId);
 	}
 
 	//This feature should be located in the 'industry' controller
-	@RequestMapping(value = "/companies/findBy", method = RequestMethod.GET)
-	public @ResponseBody List<Company> getCompaniesByIndustry(@RequestParam(value="industryId") Long industryId){
+	@GetMapping(value = "/companies/findBy")
+	public List<Company> getCompaniesByIndustry(@RequestParam(value="industryId") Long industryId){
 		return companyService.getCompaniesByIndustry(industryId);
 	}
 
