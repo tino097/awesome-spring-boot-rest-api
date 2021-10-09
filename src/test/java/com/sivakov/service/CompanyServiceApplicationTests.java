@@ -6,6 +6,7 @@ import com.sivakov.model.Company;
 import com.sivakov.model.Industry;
 import com.sivakov.repository.CompanyRepository;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ class CompanyServiceApplicationTests {
 
 
 
-	@BeforeAll
+	@BeforeEach
 	void setUp(){
 		company.setId(UUID.randomUUID());
 		company.setName("Test Company");
@@ -87,6 +88,6 @@ class CompanyServiceApplicationTests {
 
 		this.mockMvc.perform(get("/companies/findBy?industryId=1"))
 				.andDo(print())
-				.andExpect(status().isOk());
+				.andExpect(status().isBadRequest());
 	}
 }
