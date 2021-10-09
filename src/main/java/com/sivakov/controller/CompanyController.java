@@ -6,6 +6,7 @@ import com.sivakov.model.ErrorResponse;
 import com.sivakov.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,8 +41,9 @@ public class CompanyController {
 	 * @param company the company
 	 * @return the company
 	 */
-	@PostMapping("add")
+	@PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Company createCompany(@RequestBody @Valid Company company) {
+		company.setId(UUID.randomUUID());
 		return companyService.save(company);
 	}
 
@@ -51,7 +53,7 @@ public class CompanyController {
 	 * @param id the id
 	 * @return the company
 	 */
-	@GetMapping("{id}")
+	@GetMapping("/{id}")
 	public Company getCompanyById(@PathVariable UUID id) {
 		return companyService.getById(id);
 	}
@@ -63,7 +65,7 @@ public class CompanyController {
 	 * @param id      the id
 	 * @return the company
 	 */
-	@PutMapping("{id}")
+	@PutMapping("/{id}")
 	public Company editCompany(@RequestBody Company company, @PathVariable UUID id) {
 		return companyService.editCompany(company, id);
 	}
@@ -75,13 +77,13 @@ public class CompanyController {
 	 * @param ownerId the owner's id
 	 * @return the company
 	 */
-	@PostMapping("{id}/{ownerId}")
+	@PostMapping("/{id}/{ownerId}")
 	public Company addOwner(@PathVariable UUID id, @PathVariable UUID ownerId) {
 		return companyService.addOwner(id, ownerId);
 	}
 
 	//This feature should be located in the 'industry' controller
-	@GetMapping(value = "/companies/findBy")
+	@GetMapping(value = "/findBy")
 	public List<Company> getCompaniesByIndustry(@RequestParam(value="industryId") Long industryId){
 		return companyService.getCompaniesByIndustry(industryId);
 	}
