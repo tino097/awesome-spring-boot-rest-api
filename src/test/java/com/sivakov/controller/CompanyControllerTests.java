@@ -1,10 +1,11 @@
-package com.sivakov.service;
+package com.sivakov.controller;
 
 import com.sivakov.Application;
 import com.sivakov.controller.CompanyController;
 import com.sivakov.model.Company;
 import com.sivakov.model.Industry;
 import com.sivakov.repository.CompanyRepository;
+import com.sivakov.service.CompanyService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,9 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @SpringBootTest(classes = Application.class)
-@ActiveProfiles("test")
 @AutoConfigureMockMvc
-class CompanyServiceApplicationTests {
+class CompanyControllerTests {
 
 	@MockBean
 	private  CompanyRepository companyRepository;
@@ -88,6 +88,6 @@ class CompanyServiceApplicationTests {
 
 		this.mockMvc.perform(get("/companies/findBy?industryId=1"))
 				.andDo(print())
-				.andExpect(status().isBadRequest());
+				.andExpect(status().isOk());
 	}
 }
