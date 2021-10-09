@@ -16,9 +16,9 @@ var owner = {
 }
 $("#new").click(
 		function() {
-			var tid = $('#companiesTable tr:last').attr('id') == undefined ? 0
-					: $('#companiesTable tr:last').attr('id');
-			company.id = tid + 1;
+//			var tid = $('#companiesTable tr:last').attr('id') == undefined ? 0
+//					: $('#companiesTable tr:last').attr('id');
+//			company.id = tid + 1;
 			company.name = $("#name").val();
 			company.address = $("#address").val();
 			company.city = $("#city").val();
