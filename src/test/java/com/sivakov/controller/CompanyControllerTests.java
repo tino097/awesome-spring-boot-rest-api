@@ -1,22 +1,24 @@
-package com.sivakov.service;
+package com.sivakov.controller;
 
 import com.sivakov.Application;
-import com.sivakov.controller.CompanyController;
 import com.sivakov.model.Company;
 import com.sivakov.model.Industry;
 import com.sivakov.repository.CompanyRepository;
-import org.junit.jupiter.api.BeforeAll;
+import com.sivakov.service.CompanyService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -24,9 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @SpringBootTest(classes = Application.class)
-@ActiveProfiles("test")
 @AutoConfigureMockMvc
-class CompanyServiceApplicationTests {
+class CompanyControllerTests {
 
 	@MockBean
 	private  CompanyRepository companyRepository;
@@ -47,7 +48,7 @@ class CompanyServiceApplicationTests {
 
 
 
-	@BeforeAll
+	@BeforeEach
 	void setUp(){
 		company.setId(UUID.randomUUID());
 		company.setName("Test Company");
@@ -61,29 +62,19 @@ class CompanyServiceApplicationTests {
 		industry3.setId(3L);
 		industry3.setName("Food");
 
-		Set<Industry> industries = new HashSet<>();
-		industries.add(industry);
-		industries.add(industry2);
-		industries.add(industry);
-		company.setIndustries(industries);
+		company.setIndustries(Set.of(industry, industry2, industry3));
 	}
 
 	@Test
 	void testGetCompany() throws Exception {
-		List<Company> results = new ArrayList<>();
-		results.add(company);
-		when(companyService.getAll()).thenReturn(results);
+		when(companyService.getAll()).thenReturn(List.of(company));
 
 		this.mockMvc.perform(get("/companies")).andExpect(status().isOk());
 	}
 
 	@Test
 	void testGetCompanyByIndustryId() throws Exception{
-		List<Company> results = new ArrayList<>();
-		results.add(company);
-		when(companyService.getCompaniesByIndustry(1L)).thenReturn(results);
-
-		System.out.println(results);
+		when(companyService.getCompaniesByIndustry(anyLong())).thenReturn(List.of(company));
 
 		this.mockMvc.perform(get("/companies/findBy?industryId=1"))
 				.andDo(print())

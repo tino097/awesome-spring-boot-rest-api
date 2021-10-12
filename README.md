@@ -25,8 +25,8 @@ REST endpoint for that purpose. Additionally it will be an option to add Owners 
 
 ## Prerequisites
 
-- Java 1.8+
-- Gradle 6.1.1
+- Java 11
+- Gradle 7.1.1
 - Docker
 
 ---
